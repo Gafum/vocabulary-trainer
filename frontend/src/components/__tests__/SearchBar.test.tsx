@@ -1,0 +1,55 @@
+import { render, screen, fireEvent } from "@testing-library/react";
+import { SearchBar } from "../SearchBar";
+import { describe, expect, test, vi } from "vitest";
+
+vi.mock("../UI/Icon", () => ({
+   Icon: ({ name }: { name: string }) => (
+      <span data-testid={`icon-${name.toLowerCase()}`}>{name}</span>
+   ),
+}));
+
+describe("SearchBar", () => {
+   test("renders correctly", () => {
+      render(<SearchBar searchTerm="" onSearch={() => {}} />);
+
+      expect(
+         screen.getByLabelText(/search for vocabulary words/i)
+      ).toBeInTheDocument();
+      expect(screen.getByTestId("icon-search")).toBeInTheDocument();
+   });
+
+   test("calls onSearch when input changes", () => {
+      const mockOnSearch = vi.fn();
+      render(<SearchBar searchTerm="" onSearch={mockOnSearch} />);
+
+      const input = screen.getByLabelText(/search for vocabulary words/i);
+      fireEvent.change(input, { target: { value: "test" } });
+
+      expect(mockOnSearch).toHaveBeenCalledWith("test");
+   });
+
+   test("displays the current search term", () => {
+      render(<SearchBar searchTerm="hello" onSearch={() => {}} />);
+
+      const input = screen.getByLabelText(
+         /search for vocabulary words/i
+      ) as HTMLInputElement;
+      expect(input.value).toBe("hello");
+   });
+
+   test("shows clear button when search term exists", () => {
+      render(<SearchBar searchTerm="hello" onSearch={() => {}} />);
+
+      expect(screen.getByTestId("icon-x")).toBeInTheDocument();
+   });
+
+   test("clear button calls onSearch with empty string", () => {
+      const mockOnSearch = vi.fn();
+      render(<SearchBar searchTerm="hello" onSearch={mockOnSearch} />);
+
+      const clearButton = screen.getByLabelText(/clear search/i);
+      fireEvent.click(clearButton);
+
+      expect(mockOnSearch).toHaveBeenCalledWith("");
+   });
+});

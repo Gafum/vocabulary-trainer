@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+   :root {
+      --text-color: #3d3d3d;
+      --bg-color: #242424;
+      font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      font-weight: 400;
+
+      background-color: var(--bg-color);
+      color: var(--text-color);
+
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+   }
+
+   :focus,
+   :active {
+      outline: none;
+   }
+   a:focus,
+   a:active,
+   input:focus,
+   input:active {
+      outline: none;
+   }
+   nav,
+   footer,
+   header,
+   aside {
+      display: block;
+   }
+   input,
+   button,
+   textarea,
+   select {
+      -webkit-user-select: initial;
+      -khtml-user-select: initial;
+      -moz-user-select: initial;
+      -ms-user-select: initial;
+      -khtml-user-select: initial;
+      user-select: initial;
+      pointer-events: all;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      font-family: inherit;
+   }
+   input::-ms-clear {
+      display: none;
+   }
+   button {
+      cursor: pointer;
+      -webkit-tap-highlight-color: #fff0;
+      -webkit-tap-highlight-color: transparent;
+   }
+   select {
+      cursor: pointer;
+   }
+   button::-moz-focus-inner {
+      padding: 0;
+      border: 0;
+   }
+   a,
+   a:visited {
+      text-decoration: none;
+   }
+   a:hover {
+      text-decoration: none;
+   }
+   ul li,
+   nav li {
+      list-style: none;
+   }
+   img {
+      vertical-align: top;
+      width: 100%;
+   }
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   h6 {
+      font-size: inherit;
+   }
+
+   /* Custom Input Css ---------- */
+   .inputes {
+      --horizontal: 12px;
+      --vertical: 8px;
+      position: relative;
+      margin-top: 16px;
+   }
+
+   .inputes input,
+   .inputes textarea {
+      resize: none;
+      text-align: left;
+      border-radius: 8px;
+      font-size: 16px;
+      padding: 8px 12px;
+      padding: var(--vertical) var(--horizontal);
+      width: 100%;
+      border: 1px solid var(--main-text-color);
+      transition: box-shadow 0.2s;
+      margin: 0;
+      border: black 1px solid;
+   }
+
+   .inputes input.incorrect,
+   .inputes textarea.incorrect {
+      box-shadow: 0px 0px 3px rgba(209, 6, 6, 0.534);
+   }
+
+   .inputes label {
+      white-space: nowrap;
+      word-break: break-word;
+      pointer-events: none;
+      cursor: text;
+      transition: color 0.2s, transform 0.2s;
+      color: #11144cb1;
+      font-size: 16px;
+      position: absolute;
+      top: var(--vertical);
+      left: var(--horizontal);
+      background-color: white;
+      border-radius: 3px;
+      padding: 0 4px;
+      border-radius: 5px;
+   }
+
+   .inputes label svg {
+      stroke: #11144cb1;
+   }
+
+   .inputes input:focus ~ label,
+   .inputes input:valid ~ label,
+   .inputes textarea:focus ~ label,
+   .inputes textarea:valid ~ label {
+      color: black;
+      transform: translateX(-10%) translateY(calc(-54% - var(--vertical)))
+         scale(0.75);
+   }
+
+   .inputes input:focus ~ label svg,
+   .inputes input:valid ~ label svg,
+   .inputes textarea:focus ~ label svg,
+   .inputes textarea:valid ~ label svg {
+      stroke: black;
+   }
+
+   @media (max-width: 400px) {
+      .inputes input:focus ~ label,
+      .inputes input:valid ~ label,
+      .inputes textarea:focus ~ label,
+      .inputes textarea:valid ~ label {
+         transform: translateX(-10%) translateY(-85%) scale(0.75);
+      }
+   }
+}
