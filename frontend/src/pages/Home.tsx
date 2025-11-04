@@ -10,7 +10,6 @@ import {
    useWordsQuery,
    useAddWordMutation,
    useUpdateWordMutation,
-   useMarkAsLearnedMutation,
 } from "../hooks/useWordsQuery";
 
 export const Home: React.FC = () => {
@@ -45,7 +44,6 @@ export const Home: React.FC = () => {
 
    const addWordMutation = useAddWordMutation();
    const updateWordMutation = useUpdateWordMutation();
-   const markAsLearnedMutation = useMarkAsLearnedMutation();
 
    const handleSearch = (term: string) => {
       setSearchTerm(term);
@@ -81,7 +79,7 @@ export const Home: React.FC = () => {
       const wordToUpdate = wordsData?.data.find((word) => word.id === id);
       if (!wordToUpdate) return;
 
-      markAsLearnedMutation.mutate({ ...wordToUpdate, learned });
+      updateWordMutation.mutate({ ...wordToUpdate, learned });
    };
 
    const handleCloseModal = () => {
@@ -98,7 +96,9 @@ export const Home: React.FC = () => {
          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="md:col-span-1">
                <WordInput
-                  onAddWord={(wordPayload) => handleAddWord({ ...wordPayload, lastReviewed: "" })}
+                  onAddWord={(wordPayload) =>
+                     handleAddWord({ ...wordPayload, lastReviewed: "" })
+                  }
                   isSubmitting={addWordMutation.isPending}
                />
             </div>

@@ -1,13 +1,46 @@
 import { PrismaClient } from "@prisma/client";
-import type { CreateWordPayload } from "../../../shared/types";
+import type {
+   CreateWordPayload,
+   FetchWordsQueryParams,
+} from "../../../shared/types";
 
 const prisma = new PrismaClient();
 
 export const wordsService = {
-   getAllWords: async () => {
-      return prisma.word.findMany({
-         orderBy: { lastReviewed: "desc" },
+   getAllWords: async ({
+      page,
+      limit,
+      search,
+      sortBy,
+      order,
+   }: Required<FetchWordsQueryParams>) => {
+      const skip = (page - 1) * limit;
+
+      const where = search
+         ? {
+              OR: [
+                 { term: { contains: search } },
+                 { translation: { contains: search } },
+              ],
+           }
+         : {};
+
+      const totalCount = await prisma.word.count({ where });
+
+      const words = await prisma.word.findMany({
+         where,
+         orderBy: { [sortBy]: order },
+         skip,
+         take: limit,
       });
+
+      const totalPages = Math.ceil(totalCount / limit);
+
+      return {
+         data: words,
+         page,
+         totalPages,
+      };
    },
 
    getWordById: async (id: string) => {
@@ -35,19 +68,10 @@ export const wordsService = {
       });
    },
 
-   deleteWord: async (id: string) => {
-      return prisma.word.delete({
-         where: { id },
-      });
-   },
-
-   markAsLearned: async (id: string, learned: boolean) => {
-      return prisma.word.update({
-         where: { id },
-         data: {
-            learned,
-            lastReviewed: new Date().toISOString(),
-         },
-      });
-   },
+   // Dont need for task
+   // deleteWord: async (id: string) => {
+   //    return prisma.word.delete({
+   //       where: { id },
+   //    });
+   // },
 };

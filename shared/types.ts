@@ -1,20 +1,28 @@
 export interface Word {
-  id: string;
-  term: string;
-  translation: string;
-  lastReviewed: string;
-  difficulty: number;   // 1–5
-  learned?: boolean;
+   id: string;
+   term: string;
+   translation: string;
+   lastReviewed: string;
+   difficulty: number; // 1–5
+   learned?: boolean;
 }
 
 export interface CreateWordPayload {
-  term: string;
-  translation: string;
-  difficulty: number;
+   term: string;
+   translation: string;
+   difficulty: number;
 }
 
 export interface PagedResponse<T> {
-  data: T[];
-  page: number;
-  totalPages: number;
+   data: T[];
+   page: number;
+   totalPages: number;
+}
+
+export interface FetchWordsQueryParams {
+   page?: number;
+   limit?: number;
+   search?: string | "";
+   sortBy?: keyof Word;
+   order?: "asc" | "desc";
 }

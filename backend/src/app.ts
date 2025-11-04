@@ -12,13 +12,19 @@ const app = express();
 
 // Middleware
 app.use(helmet());
-app.use(cors());
+app.use(
+   cors({
+      origin: (process.env.CORS_ORIGIN || "http://localhost:5173").split(","),
+      credentials: true,
+   })
+);
 app.use(express.json());
 app.use(rateLimitMiddleware);
 
 // API routes
 app.use("/api/words", apiKeyMiddleware, wordsRoutes);
 
+// Check if server is running
 app.get("/health", (req: express.Request, res: express.Response) => {
    res.status(200).json({ status: "ok" });
 });

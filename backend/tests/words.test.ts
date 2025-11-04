@@ -83,4 +83,12 @@ describe("Words API", () => {
       expect(response.body.difficulty).toBe(3);
       expect(response.body.learned).toBe(true);
    });
+
+   test("DELETE /api/words/:id - should delete a word", async () => {
+      const response = await request(app)
+         .delete(`/api/words/${wordId}`)
+         .set("X-Api-Key", API_KEY);
+
+      expect(response.status).toBe(204);
+   });
 });

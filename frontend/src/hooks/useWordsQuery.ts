@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Word, CreateWordPayload } from "../../../shared/types";
-import { fetchWords, addWord, updateWord, deleteWord } from "../services/api";
+import { fetchWords, addWord, updateWord } from "../services/api";
 
 // Query keys
 export const wordKeys = {
@@ -26,7 +26,14 @@ export const useWordsQuery = (
 ) => {
    return useQuery({
       queryKey: wordKeys.list({ page, limit, searchTerm, sortBy, sortOrder }),
-      queryFn: () => fetchWords(page, limit, searchTerm, sortBy, sortOrder),
+      queryFn: () =>
+         fetchWords({
+            page,
+            limit,
+            search: searchTerm,
+            sortBy,
+            order: sortOrder,
+         }),
    });
 };
 
@@ -53,27 +60,4 @@ export const useUpdateWordMutation = () => {
          queryClient.invalidateQueries({ queryKey: wordKeys.detail(data.id) });
       },
    });
-};
-
-export const useDeleteWordMutation = () => {
-   const queryClient = useQueryClient();
-
-   return useMutation({
-      mutationFn: (id: string) => deleteWord(id),
-      onSuccess: () => {
-         // Invalidate and refetch
-         queryClient.invalidateQueries({ queryKey: wordKeys.lists() });
-      },
-   });
-};
-
-export const useMarkAsLearnedMutation = () => {
-   const { mutateAsync: updateMutateAsync, ...rest } = useUpdateWordMutation();
-
-   return {
-      mutateAsync: async (word: Word, learned: boolean) => {
-         return await updateMutateAsync({ ...word, learned });
-      },
-      ...rest,
-   };
 };

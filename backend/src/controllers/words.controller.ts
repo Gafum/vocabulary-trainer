@@ -2,12 +2,28 @@ import { Request, Response, NextFunction } from "express";
 import { wordsService } from "../services/words.service";
 import { CreateWordSchema, UpdateWordSchema } from "../../../shared/schemas";
 import { z } from "zod";
+import { Word } from "../../../shared/types";
 
 export const wordsController = {
    getAllWords: async (req: Request, res: Response, next: NextFunction) => {
       try {
-         const words = await wordsService.getAllWords();
-         res.json(words);
+         const {
+            page = 1,
+            limit = 10,
+            search = "",
+            sortBy = "term",
+            order = "asc",
+         } = req.query;
+
+         const result = await wordsService.getAllWords({
+            page: Number(page),
+            limit: Number(limit),
+            search: String(search),
+            sortBy: String(sortBy) as keyof Word,
+            order: order === "desc" ? "desc" : "asc",
+         });
+
+         res.json(result);
       } catch (error) {
          next(error);
       }
@@ -82,4 +98,26 @@ export const wordsController = {
          next(error);
       }
    },
+
+   // Dont need for task
+   // deleteWord: async (req: Request, res: Response, next: NextFunction) => {
+   //    try {
+   //       const { id } = req.params;
+
+   //       const existingWord = await wordsService.getWordById(id);
+   //       if (!existingWord) {
+   //          return res.status(404).json({
+   //             error: {
+   //                message: "Word not found",
+   //                code: "NOT_FOUND",
+   //             },
+   //          });
+   //       }
+
+   //       await wordsService.deleteWord(id);
+   //       return res.status(204).send();
+   //    } catch (error) {
+   //       next(error);
+   //    }
+   // },
 };
