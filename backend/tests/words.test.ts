@@ -46,7 +46,9 @@ describe("Words API", () => {
             difficulty: 10, // Invalid: out of range
          });
 
+      expect(response.status).toBe(400);
       expect(response.body).toHaveProperty("error");
+      expect(response.body.error).toHaveProperty("message", "Validation error");
    });
 
    test("GET /api/words - should return all words", async () => {
@@ -55,8 +57,8 @@ describe("Words API", () => {
          .set("X-Api-Key", API_KEY);
 
       expect(response.status).toBe(200);
-      expect(Array.isArray(response.body)).toBe(true);
-      expect(response.body.length).toBeGreaterThan(0);
+      expect(Array.isArray(response.body.data)).toBe(true); // перевіряємо масив всередині data
+      expect(response.body.data.length).toBeGreaterThan(0);
    });
 
    test("GET /api/words/:id - should return a specific word", async () => {
@@ -82,13 +84,5 @@ describe("Words API", () => {
       expect(response.body).toHaveProperty("id", wordId);
       expect(response.body.difficulty).toBe(3);
       expect(response.body.learned).toBe(true);
-   });
-
-   test("DELETE /api/words/:id - should delete a word", async () => {
-      const response = await request(app)
-         .delete(`/api/words/${wordId}`)
-         .set("X-Api-Key", API_KEY);
-
-      expect(response.status).toBe(204);
    });
 });

@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import { WordList } from "../WordList";
+import { WordList } from "@/pages/Home/components/WordList";
 import type { Word } from "../../../../shared/types";
 
-import { describe, test, expect } from 'vitest';
+import { describe, test, expect } from "vitest";
 
 const mockWords: Word[] = [
    {

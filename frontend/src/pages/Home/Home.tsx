@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import type { Word } from "../../../shared/types";
-import { SearchBar } from "../components/SearchBar";
-import { WordList } from "../components/WordList";
-import { WordInput } from "../components/WordInput";
-import { Pagination } from "../components/Pagination";
-import { EditModal } from "../components/EditModal";
-import { useDebounce } from "../hooks/useDebounce";
+import type { Word } from "@shared/types";
+import { SearchBar } from "./components/SearchBar";
+import { WordList } from "./components/WordList";
+import { WordInput } from "./components/WordInput";
+import { Pagination } from "./components/Pagination";
+import { EditModal } from "./components/EditModal";
+import { useDebounce } from "../../hooks/useDebounce";
 import {
    useWordsQuery,
    useAddWordMutation,
    useUpdateWordMutation,
-} from "../hooks/useWordsQuery";
+} from "../../hooks/useWordsQuery";
 
 export const Home: React.FC = () => {
    const [searchTerm, setSearchTerm] = useState("");

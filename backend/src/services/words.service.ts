@@ -37,7 +37,7 @@ export const wordsService = {
       const totalPages = Math.ceil(totalCount / limit);
 
       return {
-         data: words,
+         data: words.length ? words : [],
          page,
          totalPages,
       };

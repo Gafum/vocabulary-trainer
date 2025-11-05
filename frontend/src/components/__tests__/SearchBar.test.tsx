@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { SearchBar } from "../SearchBar";
+import { SearchBar } from "@/pages/Home/components/SearchBar";
 import { describe, expect, test, vi } from "vitest";
 
 vi.mock("../UI/Icon", () => ({

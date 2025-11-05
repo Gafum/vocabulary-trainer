@@ -4,7 +4,7 @@ import type {
    CreateWordPayload,
    PagedResponse,
    FetchWordsQueryParams,
-} from "../../../shared/types";
+} from "@shared/types";
 
 // API configuration
 const API_BASE_URL =

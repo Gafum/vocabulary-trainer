@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import type { Word } from "../../../shared/types";
-import { Button } from "./UI/Button";
-import { Icon } from "./UI/Icon";
+import type { Word } from "@shared/types";
+import { Button } from "@/components/UI/Button";
+import { Icon } from "@/components/UI/Icon";
 
 interface EditModalProps {
    word: Word | null;

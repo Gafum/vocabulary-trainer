@@ -55,12 +55,13 @@ export const wordsController = {
          const newWord = await wordsService.createWord(validatedData);
          res.status(201).json(newWord);
       } catch (error) {
-         if (error instanceof z.ZodError) {
+         const err = error as z.ZodError | Error;
+         if (err instanceof z.ZodError || err?.name === "ZodError") {
             return res.status(400).json({
                error: {
                   message: "Validation error",
                   code: "VALIDATION_ERROR",
-                  details: error.errors,
+                  details: err instanceof z.ZodError ? err.errors : [],
                },
             });
          }
@@ -86,12 +87,13 @@ export const wordsController = {
          const updatedWord = await wordsService.updateWord(id, validatedData);
          res.json(updatedWord);
       } catch (error) {
-         if (error instanceof z.ZodError) {
+         const err = error as z.ZodError | Error;
+         if (err instanceof z.ZodError || err?.name === "ZodError") {
             return res.status(400).json({
                error: {
                   message: "Validation error",
                   code: "VALIDATION_ERROR",
-                  details: error.errors,
+                  details: err instanceof z.ZodError ? err.errors : [],
                },
             });
          }
