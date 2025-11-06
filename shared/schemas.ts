@@ -15,9 +15,3 @@ export const CreateWordSchema = z.object({
    difficulty: z.number().min(1).max(5),
    learned: z.boolean().optional(),
 });
-
-export const UpdateWordSchema = CreateWordSchema.partial();
-
-export type Word = z.infer<typeof WordSchema>;
-export type CreateWordPayload = z.infer<typeof CreateWordSchema>;
-export type UpdateWordPayload = z.infer<typeof UpdateWordSchema>;

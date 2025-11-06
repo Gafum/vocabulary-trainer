@@ -1,17 +1,9 @@
-export interface Word {
-   id: string;
-   term: string;
-   translation: string;
-   lastReviewed: string;
-   difficulty: number; // 1–5
-   learned?: boolean;
-}
+import z from "zod";
+import { CreateWordSchema, WordSchema } from "./schemas";
 
-export interface CreateWordPayload {
-   term: string;
-   translation: string;
-   difficulty: number;
-}
+export type Word = z.infer<typeof WordSchema>;
+
+export type CreateWordPayload = z.infer<typeof CreateWordSchema>;
 
 export interface PagedResponse<T> {
    data: T[];
