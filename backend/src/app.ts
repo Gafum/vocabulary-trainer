@@ -22,6 +22,7 @@ app.use(rateLimitMiddleware);
 // API routes
 app.use("/api/words", apiKeyMiddleware, wordsRoutes);
 
+// Check if server is running
 app.get("/health", (req: express.Request, res: express.Response) => {
   res.status(200).json({ status: "ok" });
 });

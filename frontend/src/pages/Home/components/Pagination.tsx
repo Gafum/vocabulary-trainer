@@ -13,7 +13,7 @@ export const Pagination: React.FC<PaginationProps> = ({
    totalPages,
    onPageChange,
 }) => {
-   if (totalPages <= 1) return null;
+   if (totalPages <= 1) return "";
 
    return (
       <div className="flex justify-center items-center mt-6 space-x-2">
@@ -25,7 +25,7 @@ export const Pagination: React.FC<PaginationProps> = ({
             aria-label="Previous page"
          >
             <Icon name="ChevronLeft" size={16} />
-            Prev
+            Previous
          </Button>
 
          <span className="text-sm text-gray-700">

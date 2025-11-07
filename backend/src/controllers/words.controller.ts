@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { wordsService } from "../services/words.service";
-import { CreateWordSchema, UpdateWordSchema } from "../../../shared/schemas";
+import { CreateWordSchema } from "../../../shared/schemas";
 import { z } from "zod";
 import { Word } from "../../../shared/types";
+import sanitizeHtml from "sanitize-html";
 
 export const wordsController = {
    getAllWords: async (req: Request, res: Response, next: NextFunction) => {
@@ -18,7 +19,7 @@ export const wordsController = {
          const result = await wordsService.getAllWords({
             page: Number(page),
             limit: Number(limit),
-            search: String(search),
+            search: sanitizeHtml(String(search)),
             sortBy: String(sortBy) as keyof Word,
             order: order === "desc" ? "desc" : "asc",
          });
@@ -32,14 +33,13 @@ export const wordsController = {
    getWordById: async (req: Request, res: Response, next: NextFunction) => {
       try {
          const { id } = req.params;
-         const word = await wordsService.getWordById(id);
+         const safeId = sanitizeHtml(id);
+
+         const word = await wordsService.getWordById(safeId);
 
          if (!word) {
             return res.status(404).json({
-               error: {
-                  message: "Word not found",
-                  code: "NOT_FOUND",
-               },
+               error: { message: "Word not found", code: "NOT_FOUND" },
             });
          }
 
@@ -51,7 +51,22 @@ export const wordsController = {
 
    createWord: async (req: Request, res: Response, next: NextFunction) => {
       try {
-         const validatedData = CreateWordSchema.parse(req.body);
+         // Sanitize HTML before creating new Word
+         const sanitizedBody = Object.fromEntries(
+            Object.entries(req.body).map(([key, value]) => [
+               key,
+               typeof value === "string"
+                  ? sanitizeHtml(value, {
+                       allowedTags: [],
+                       allowedAttributes: {},
+                       allowVulnerableTags: false,
+                    })
+                  : value,
+            ])
+         );
+
+         const validatedData = CreateWordSchema.parse(sanitizedBody);
+
          const newWord = await wordsService.createWord(validatedData);
          res.status(201).json(newWord);
       } catch (error) {
@@ -65,6 +80,7 @@ export const wordsController = {
                },
             });
          }
+
          next(error);
       }
    },
@@ -72,19 +88,35 @@ export const wordsController = {
    updateWord: async (req: Request, res: Response, next: NextFunction) => {
       try {
          const { id } = req.params;
-         const validatedData = UpdateWordSchema.parse(req.body);
 
-         const existingWord = await wordsService.getWordById(id);
+         // Sanitize HTML before creating new Word
+         const safeId = sanitizeHtml(id);
+         const sanitizedBody = Object.fromEntries(
+            Object.entries(req.body).map(([key, value]) => [
+               key,
+               typeof value === "string"
+                  ? sanitizeHtml(value, {
+                       allowedTags: [],
+                       allowedAttributes: {},
+                       allowVulnerableTags: false,
+                    })
+                  : value,
+            ])
+         );
+
+         const validatedData = CreateWordSchema.partial().parse(sanitizedBody);
+
+         const existingWord = await wordsService.getWordById(safeId);
          if (!existingWord) {
             return res.status(404).json({
-               error: {
-                  message: "Word not found",
-                  code: "NOT_FOUND",
-               },
+               error: { message: "Word not found", code: "NOT_FOUND" },
             });
          }
 
-         const updatedWord = await wordsService.updateWord(id, validatedData);
+         const updatedWord = await wordsService.updateWord(
+            safeId,
+            validatedData
+         );
          res.json(updatedWord);
       } catch (error) {
          const err = error as z.ZodError | Error;
@@ -97,6 +129,7 @@ export const wordsController = {
                },
             });
          }
+
          next(error);
       }
    },

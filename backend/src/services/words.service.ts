@@ -14,8 +14,7 @@ export const wordsService = {
       sortBy,
       order,
    }: Required<FetchWordsQueryParams>) => {
-      const skip = (page - 1) * limit;
-
+      // Set Search
       const where = search
          ? {
               OR: [
@@ -27,6 +26,10 @@ export const wordsService = {
 
       const totalCount = await prisma.word.count({ where });
 
+      // What "Page"
+      const skip = (page - 1) * limit;
+
+      //Request
       const words = await prisma.word.findMany({
          where,
          orderBy: { [sortBy]: order },

@@ -136,8 +136,9 @@ export const EditModal: React.FC<EditModalProps> = ({
                      name="translation"
                      type="text"
                      value={editedWord.translation}
-                     required
+                     onChange={handleChange}
                      disabled={isSubmitting}
+                     required
                   />
                   <label htmlFor="edit-translation">Translation</label>
                </div>

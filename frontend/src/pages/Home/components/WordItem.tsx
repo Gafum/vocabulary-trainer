@@ -9,21 +9,21 @@ interface WordItemProps {
    onMarkLearned: (id: string, learned: boolean) => void;
 }
 
+const formatDate = (dateString: string) => {
+   const date = new Date(dateString);
+   return date.toLocaleDateString();
+};
+
+const getDifficultyLabel = (difficulty: number) => {
+   const labels = ["Very Easy", "Easy", "Medium", "Hard", "Very Hard"];
+   return labels[difficulty - 1] || "Unknown";
+};
+
 export const WordItem: React.FC<WordItemProps> = ({
    word,
    onEdit,
    onMarkLearned,
 }) => {
-   const formatDate = (dateString: string) => {
-      const date = new Date(dateString);
-      return date.toLocaleDateString();
-   };
-
-   const getDifficultyLabel = (difficulty: number) => {
-      const labels = ["Very Easy", "Easy", "Medium", "Hard", "Very Hard"];
-      return labels[difficulty - 1] || "Unknown";
-   };
-
    return (
       <div
          className={`p-4 border rounded-lg mb-2 shadow-sm transition-all ${

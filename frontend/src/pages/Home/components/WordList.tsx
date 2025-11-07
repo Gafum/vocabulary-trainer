@@ -57,7 +57,7 @@ export const WordList: React.FC<WordListProps> = ({
       return (
          <div className="text-gray-500 py-4 flex items-center justify-center">
             <Icon name="Search" size={20} className="mr-2" />
-            No words found. Try a different search term.
+            No words found
          </div>
       );
    }
