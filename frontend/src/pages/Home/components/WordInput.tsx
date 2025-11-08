@@ -1,17 +1,11 @@
 import React, { useState } from "react";
-import type { CreateWordPayload } from "@shared/types";
 import { Button } from "@/components/UI/Button";
 import { Icon } from "@/components/UI/Icon";
+import { useAddWordMutation } from "@/hooks/useWordsQuery";
 
-interface WordInputProps {
-   onAddWord: (word: CreateWordPayload) => Promise<void>;
-   isSubmitting: boolean;
-}
+export const WordInput = () => {
+   const { mutateAsync, isPending: isSubmitting } = useAddWordMutation();
 
-export const WordInput: React.FC<WordInputProps> = ({
-   onAddWord,
-   isSubmitting,
-}) => {
    const [term, setTerm] = useState("");
    const [translation, setTranslation] = useState("");
    const [difficulty, setDifficulty] = useState<number>(3);
@@ -28,7 +22,7 @@ export const WordInput: React.FC<WordInputProps> = ({
       try {
          setError(null);
 
-         await onAddWord({
+         await mutateAsync({
             term: term.trim(),
             translation: translation.trim(),
             difficulty,

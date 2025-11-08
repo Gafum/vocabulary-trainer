@@ -1,6 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { WordList } from "@/pages/Home/components/WordList";
 import type { Word } from "../../../../shared/types";
+import type { ReactNode } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { describe, test, expect } from "vitest";
 
@@ -23,15 +25,21 @@ const mockWords: Word[] = [
    },
 ];
 
+export function renderWithQueryClient(ui: ReactNode) {
+   const queryClient = new QueryClient();
+   return render(
+      <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>
+   );
+}
+
 describe("WordList", () => {
    test("renders loading state", () => {
-      render(
+      renderWithQueryClient(
          <WordList
             words={[]}
             loading={true}
             error={null}
-            onEdit={() => {}}
-            onMarkLearned={() => {}}
+            editWord={() => {}}
             onSort={() => {}}
             sortOption={{ field: "term", order: "asc" }}
          />
@@ -41,13 +49,12 @@ describe("WordList", () => {
    });
 
    test("renders error state", () => {
-      render(
+      renderWithQueryClient(
          <WordList
             words={[]}
             loading={false}
             error="Failed to load words"
-            onEdit={() => {}}
-            onMarkLearned={() => {}}
+            editWord={() => {}}
             onSort={() => {}}
             sortOption={{ field: "term", order: "asc" }}
          />
@@ -57,13 +64,12 @@ describe("WordList", () => {
    });
 
    test("renders empty state", () => {
-      render(
+      renderWithQueryClient(
          <WordList
             words={[]}
             loading={false}
             error={null}
-            onEdit={() => {}}
-            onMarkLearned={() => {}}
+            editWord={() => {}}
             onSort={() => {}}
             sortOption={{ field: "term", order: "asc" }}
          />
@@ -73,13 +79,12 @@ describe("WordList", () => {
    });
 
    test("renders words correctly", () => {
-      render(
+      renderWithQueryClient(
          <WordList
             words={mockWords}
             loading={false}
             error={null}
-            onEdit={() => {}}
-            onMarkLearned={() => {}}
+            editWord={() => {}}
             onSort={() => {}}
             sortOption={{ field: "term", order: "asc" }}
          />

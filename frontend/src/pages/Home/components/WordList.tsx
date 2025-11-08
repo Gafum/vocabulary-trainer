@@ -7,8 +7,7 @@ interface WordListProps {
    words: Word[];
    loading: boolean;
    error: unknown;
-   onEdit: (word: Word) => void;
-   onMarkLearned: (id: string, learned: boolean) => void;
+   editWord: (word: Word) => void;
    onSort: (field: keyof Word) => void;
    sortOption: {
       field: keyof Word;
@@ -20,8 +19,7 @@ export const WordList: React.FC<WordListProps> = ({
    words,
    loading,
    error,
-   onEdit,
-   onMarkLearned,
+   editWord,
    onSort,
    sortOption,
 }) => {
@@ -97,12 +95,7 @@ export const WordList: React.FC<WordListProps> = ({
 
          <div>
             {words.map((word) => (
-               <WordItem
-                  key={word.id}
-                  word={word}
-                  onEdit={onEdit}
-                  onMarkLearned={onMarkLearned}
-               />
+               <WordItem key={word.id} word={word} editWord={editWord} />
             ))}
          </div>
       </div>
