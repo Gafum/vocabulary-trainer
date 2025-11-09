@@ -44,7 +44,7 @@ export const WordInput = () => {
 
          <form onSubmit={handleSubmit}>
             {error && (
-               <div className="mb-4 p-2 bg-red-100 text-red-700 rounded-md flex items-center">
+               <div className="mb-4 p-2 bg-red-100 text-primaryRed rounded-md flex items-center">
                   <Icon name="AlertCircle" size={16} className="mr-2" />
                   {error}
                </div>
@@ -77,7 +77,7 @@ export const WordInput = () => {
             <div className="mb-6">
                <label
                   htmlFor="difficulty"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-primaryGrey mb-1"
                >
                   Difficulty (1-5)
                </label>
@@ -92,11 +92,11 @@ export const WordInput = () => {
                      className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                      disabled={isSubmitting}
                   />
-                  <span className="ml-2 text-gray-700 font-medium">
+                  <span className="ml-2 text-primaryGrey font-medium">
                      {difficulty}
                   </span>
                </div>
-               <div className="flex justify-between text-xs text-gray-500 mt-1">
+               <div className="flex justify-between text-xs text-primaryGrey mt-1">
                   <span>Very Easy</span>
                   <span>Very Hard</span>
                </div>

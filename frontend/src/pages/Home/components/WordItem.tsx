@@ -36,7 +36,7 @@ export const WordItem: React.FC<WordItemProps> = React.memo(
             <div className="flex justify-between items-start">
                <div>
                   <h3 className="text-lg font-medium">{word.term}</h3>
-                  <p className="text-gray-600">{word.translation}</p>
+                  <p className="text-primaryGrey">{word.translation}</p>
                   <div className="mt-2 flex items-center text-sm text-gray-500">
                      <span className="mr-4">
                         Last reviewed: {formatDate(word.lastReviewed)}
@@ -44,10 +44,10 @@ export const WordItem: React.FC<WordItemProps> = React.memo(
                      <span
                         className={`px-2 py-1 rounded-full text-xs ${
                            word.difficulty <= 2
-                              ? "bg-green-100 text-green-800"
+                              ? "bg-green-100 text-primaryGreen"
                               : word.difficulty === 3
-                              ? "bg-yellow-100 text-yellow-800"
-                              : "bg-red-100 text-red-800"
+                              ? "bg-yellow-100 text-primaryYellow"
+                              : "bg-red-100 text-primaryRed"
                         }`}
                      >
                         {getDifficultyLabel(word.difficulty)}

@@ -50,7 +50,7 @@ export const WordEditForm: React.FC<WordEditFormProps> = ({
       <form onSubmit={handleSubmit}>
          <h2 className="text-xl font-bold mb-4">Edit Word</h2>
          {error && (
-            <div className="p-2 mb-3 bg-red-100 text-red-700 rounded">
+            <div className="p-2 mb-3 bg-red-100 text-primaryRed rounded">
                {error}
             </div>
          )}
@@ -78,7 +78,7 @@ export const WordEditForm: React.FC<WordEditFormProps> = ({
          <div className="mb-6">
             <label
                htmlFor="edit-difficulty"
-               className="block text-sm font-medium text-gray-700 mb-1"
+               className="block text-sm font-medium text-primaryGrey mb-1"
             >
                Difficulty
             </label>
@@ -94,7 +94,7 @@ export const WordEditForm: React.FC<WordEditFormProps> = ({
                   className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                   disabled={isPending}
                />
-               <span className="ml-2 text-gray-700 font-medium">
+               <span className="ml-2 text-primaryGrey font-medium">
                   {form.difficulty}
                </span>
             </div>

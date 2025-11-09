@@ -25,6 +25,10 @@ export default {
     extend: {
       colors: {
         primaryGrey: '#3d3d3d',
+        primaryRed: '#dc2626',
+        primaryGreen: '#16a34a',
+        primaryBlue: '#2563eb',
+        primaryYellow: '#ca8a04',
       },
       dropShadow: {
         md: '0 0 3px #666',

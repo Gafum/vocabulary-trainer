@@ -4,13 +4,11 @@
 
 @layer base {
    :root {
-      --text-color: #3d3d3d;
-      --bg-color: #242424;
+      --text-color: theme(colors.primaryGrey);
       font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
       line-height: 1.5;
       font-weight: 400;
 
-      background-color: var(--bg-color);
       color: var(--text-color);
 
       font-synthesis: none;
@@ -110,7 +108,7 @@
       border: 1px solid var(--main-text-color);
       transition: box-shadow 0.2s;
       margin: 0;
-      border: black 1px solid;
+      border: theme(colors.primaryGrey) 1px solid;
    }
 
    .inputes input.incorrect,
@@ -124,7 +122,7 @@
       pointer-events: none;
       cursor: text;
       transition: color 0.2s, transform 0.2s;
-      color: #11144cb1;
+      color: theme(colors.primaryGrey);
       font-size: 16px;
       position: absolute;
       top: var(--vertical);
@@ -136,7 +134,7 @@
    }
 
    .inputes label svg {
-      stroke: #11144cb1;
+      stroke: theme(colors.primaryGrey);
    }
 
    .inputes input:focus ~ label,

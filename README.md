@@ -1,6 +1,6 @@
 # Vocabulary Trainer
 
-A small Fullstack TypeScript app built as part of a coding assignment for **NetTrek**.  
+A small Fullstack TypeScript app built as part of a coding assignment for **[NetTrek](https://nettrek.de/)**.  
 It’s a simple vocabulary management tool with search, sorting, and editing features.
 
 ## Brief description
@@ -15,6 +15,7 @@ The app consists of two main parts:
 ## Quick Start
 
 ### Install Dependencies
+
 Before running the project, install all dependencies in **three steps**:
 
 ```bash
@@ -28,7 +29,7 @@ npm install
 # Frontend
 cd frontend
 npm install
-````
+```
 
 ---
 
@@ -82,28 +83,27 @@ npm run test
 
 **Frontend**
 
-* Fully written in **TypeScript** for strong typing.
-* **Zod** used for data validation.
-* Optimized rendering with **React.memo** and **debounced search**.
-* State and server communication handled by **React Query**.
+-  Fully written in **TypeScript** for strong typing.
+-  **Zod** used for data validation.
+-  Optimized rendering with **React.memo** and **debounced search**.
+-  State and server communication handled by **React Query**.
 
 **Backend**
 
-* Input validation via **Zod** to ensure data safety.
-* Security middleware:
+-  Input validation via **Zod** to ensure data safety.
+-  Security middleware:
 
-  * **Helmet** → sets secure HTTP headers
-  * **Rate Limiter** → protects against brute-force
-  * **sanitize-html** → prevents XSS attacks
-* **Prisma ORM** ensures type-safe and reliable DB operations.
-* Sensitive configuration managed via **.env** file.
+   -  **Helmet** → sets secure HTTP headers
+   -  **Rate Limiter** → protects against brute-force
+   -  **sanitize-html** → prevents XSS attacks
+
+-  **Prisma ORM** ensures type-safe and reliable DB operations.
+-  Sensitive configuration managed via **.env** file.
 
 ---
 
 ## What compromises were consciously made?
 
-* **UI design** was kept simple and functional to focus on logic, structure, and code clarity.
-* **Authentication** was intentionally left out.
-* **Performance** was improved with simple but effective techniques (debouncing, React.memo, caching) instead of complex solutions like virtualization.
-
-
+-  **UI design** was kept simple and functional to focus on logic, structure, and code clarity.
+-  **Authentication** was intentionally left out.
+-  **Performance** was improved with simple but effective techniques (debouncing, React.memo, caching) instead of complex solutions like virtualization.
