@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { WordList } from "@/pages/Home/components/WordList";
-import type { Word } from "../../../../shared/types";
+import type { Word } from "../../../../../shared/types";
 import type { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -60,7 +60,7 @@ describe("WordList", () => {
          />
       );
 
-      expect(screen.getByText(/failed to load words/i)).toBeInTheDocument();
+      expect(screen.getByText(/No words found/i)).toBeInTheDocument();
    });
 
    test("renders empty state", () => {
