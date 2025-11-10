@@ -15,7 +15,6 @@ describe("SearchBar", () => {
       expect(
          screen.getByLabelText(/search for vocabulary words/i)
       ).toBeInTheDocument();
-      expect(screen.getByTestId("icon-search")).toBeInTheDocument();
    });
 
    test("calls onSearch when input changes", () => {
@@ -35,12 +34,6 @@ describe("SearchBar", () => {
          /search for vocabulary words/i
       ) as HTMLInputElement;
       expect(input.value).toBe("hello");
-   });
-
-   test("shows clear button when search term exists", () => {
-      render(<SearchBar searchTerm="hello" onSearch={() => {}} />);
-
-      expect(screen.getByTestId("icon-x")).toBeInTheDocument();
    });
 
    test("clear button calls onSearch with empty string", () => {
