@@ -13,6 +13,7 @@ export const Pagination: React.FC<PaginationProps> = ({
    totalPages,
    onPageChange,
 }) => {
+   //There is no pages
    if (totalPages <= 1) return "";
 
    return (

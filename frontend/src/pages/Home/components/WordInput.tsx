@@ -6,6 +6,7 @@ import { useAddWordMutation } from "@/hooks/useWordsQuery";
 export const WordInput = () => {
    const { mutateAsync, isPending: isSubmitting } = useAddWordMutation();
 
+   //Should be optimize in future to many states
    const [term, setTerm] = useState("");
    const [translation, setTranslation] = useState("");
    const [difficulty, setDifficulty] = useState<number>(3);
@@ -75,6 +76,7 @@ export const WordInput = () => {
             </div>
 
             <div className="mb-6">
+               {/* Difficulty slider */}
                <label
                   htmlFor="difficulty"
                   className="block text-sm font-medium text-primaryGrey mb-1"

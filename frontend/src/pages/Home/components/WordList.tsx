@@ -34,6 +34,7 @@ export const WordList: React.FC<WordListProps> = ({
    };
 
    if (loading) {
+      // Words are fetching
       return (
          <div className="flex justify-center py-8">
             <Icon name="Loader" size={24} className="animate-spin mr-2" />
@@ -43,6 +44,7 @@ export const WordList: React.FC<WordListProps> = ({
    }
 
    if (words.length === 0) {
+      // No words found
       return (
          <div className="text-gray-500 py-4 flex items-center justify-center">
             <Icon name="Search" size={20} className="mr-2" />
@@ -63,6 +65,7 @@ export const WordList: React.FC<WordListProps> = ({
    return (
       <div>
          <div className="mb-4 flex text-sm font-medium text-primaryGrey">
+            {/* Sortings block */}
             <button
                onClick={() => onSort("term")}
                className="flex items-center mr-4 hover:text-primaryBlue focus:outline-none"

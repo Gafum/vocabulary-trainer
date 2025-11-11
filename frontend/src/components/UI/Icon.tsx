@@ -16,7 +16,7 @@ export const Icon: React.FC<IconProps> = ({
    color = "currentColor",
    className = "",
 }) => {
-   // Type assertion до React Component
+   // Type assertion to React ComponentType
    const LucideIcon = LucideIcons[name] as React.ComponentType<any>;
 
    if (!LucideIcon) {

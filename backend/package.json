@@ -11,7 +11,8 @@
       "prisma:generate": "prisma generate",
       "prisma:migrate": "prisma migrate dev",
       "prisma:studio": "prisma studio",
-      "benchmark": "npx tsx benchmark/lookup.ts"
+      "benchmark": "npx tsx benchmark/lookup.ts",
+      "db:reset": "npx prisma migrate reset --force"
    },
    "dependencies": {
       "@prisma/client": "^5.0.0",

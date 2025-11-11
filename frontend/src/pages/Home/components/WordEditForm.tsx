@@ -22,6 +22,7 @@ export const WordEditForm: React.FC<WordEditFormProps> = ({
 
    if (!form) return null;
 
+   // When the input is changed, update the form state
    const handleChange = (
       e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
    ) => {
@@ -76,6 +77,7 @@ export const WordEditForm: React.FC<WordEditFormProps> = ({
          </div>
 
          <div className="mb-6">
+            {/* Difficulty slider */}
             <label
                htmlFor="edit-difficulty"
                className="block text-sm font-medium text-primaryGrey mb-1"
@@ -105,6 +107,7 @@ export const WordEditForm: React.FC<WordEditFormProps> = ({
          </div>
 
          <div className="flex justify-end gap-2">
+            {/* Cancel and Save buttons */}
             <Button variant="outline" onClick={() => setOpen(false)}>
                Cancel
             </Button>

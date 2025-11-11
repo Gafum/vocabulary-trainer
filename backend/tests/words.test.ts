@@ -1,16 +1,31 @@
 import request from "supertest";
 import { app } from "../src/app";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Word } from "@prisma/client";
 
 const prisma = new PrismaClient();
 const API_KEY = process.env.API_KEY || "12345";
 
+let originalData: Word[] = []; // create list of words to restore after tests
+
 beforeAll(async () => {
-   // Clear test database before tests
+   // save original data before tests
+   originalData = await prisma.word.findMany();
+
    await prisma.word.deleteMany({});
 });
 
 afterAll(async () => {
+   // delete all words after tests
+   await prisma.word.deleteMany({});
+   // restore original data after tests
+   if (originalData.length > 0) {
+      await prisma.word.createMany({
+         data: originalData.map(
+            ({ id, createdAt, updatedAt, ...rest }) => rest
+         ),
+      });
+   }
+
    await prisma.$disconnect();
 });
 
@@ -57,7 +72,7 @@ describe("Words API", () => {
          .set("X-Api-Key", API_KEY);
 
       expect(response.status).toBe(200);
-      expect(Array.isArray(response.body.data)).toBe(true); // перевіряємо масив всередині data
+      expect(Array.isArray(response.body.data)).toBe(true);
       expect(response.body.data.length).toBeGreaterThan(0);
    });
 

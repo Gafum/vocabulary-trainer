@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Word, CreateWordPayload } from "../../../shared/types";
 import { fetchWords, addWord, updateWord } from "../services/api";
 
-// Query keys
+// Query keys  ????
 export const wordKeys = {
    all: ["words"] as const,
    lists: () => [...wordKeys.all, "list"] as const,
@@ -17,6 +17,7 @@ export const wordKeys = {
    detail: (id: string) => [...wordKeys.details(), id] as const,
 };
 
+// Get words list
 export const useWordsQuery = (
    page: number,
    limit: number,
@@ -37,6 +38,7 @@ export const useWordsQuery = (
    });
 };
 
+// Create word
 export const useAddWordMutation = () => {
    const queryClient = useQueryClient();
 
@@ -49,6 +51,7 @@ export const useAddWordMutation = () => {
    });
 };
 
+// Update word
 export const useUpdateWordMutation = () => {
    const queryClient = useQueryClient();
 

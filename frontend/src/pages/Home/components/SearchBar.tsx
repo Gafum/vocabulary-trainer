@@ -11,6 +11,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
    searchTerm,
    onSearch,
 }) => {
+   //Did not use custom input for search, because it can cause some issues
    return (
       <div className="mb-4">
          <label

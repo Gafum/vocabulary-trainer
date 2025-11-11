@@ -35,6 +35,7 @@ export const WordItem: React.FC<WordItemProps> = React.memo(
          >
             <div className="flex justify-between items-start">
                <div>
+                  {/* Word data */}
                   <h3 className="text-lg font-medium">{word.term}</h3>
                   <p className="text-primaryGrey">{word.translation}</p>
                   <div className="mt-2 flex items-center text-sm text-gray-500">
@@ -54,7 +55,9 @@ export const WordItem: React.FC<WordItemProps> = React.memo(
                      </span>
                   </div>
                </div>
+
                <div className="flex space-x-2">
+                  {/* Mark as learned button */}
                   <Button
                      variant={word.learned ? "success" : "secondary"}
                      size="sm"
@@ -76,6 +79,7 @@ export const WordItem: React.FC<WordItemProps> = React.memo(
                            : "Mark as learned"}
                      </span>
                   </Button>
+                  {/* Edit button */}
                   <Button
                      variant="primary"
                      size="sm"

@@ -10,16 +10,20 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, setOpen, children }) => {
    const ref = useRef<HTMLDivElement>(null);
 
    useEffect(() => {
+      // Close modal on Escape key press
       const handleKey = (e: KeyboardEvent) => {
          if (e.key === "Escape") setOpen(false);
       };
+      // Close modal on click outside
       const handleClick = (e: MouseEvent) => {
          if (ref.current && !ref.current.contains(e.target as Node))
             setOpen(false);
       };
+      // Add event listeners
       document.addEventListener("keydown", handleKey);
       document.addEventListener("mousedown", handleClick);
       return () => {
+         // Remove event listeners on cleanup
          document.removeEventListener("keydown", handleKey);
          document.removeEventListener("mousedown", handleClick);
       };
