@@ -1,11 +1,20 @@
 # PHP Service
 
-In this folder, a PHP-based backend service will be implemented.
-This service is planned to handle features such as user registration, login, and communication with the main database.
-It will work together with the main application to manage authentication and data exchange.
+## Database Schema
 
----
+The service uses a simple SQLite database with two tables: `User` and `Word`.
 
-I still have a question regarding this part:
-Should I already start creating this service (for example, setting up registration and login with a database),
-or should I first wait for further instructions on how it should be integrated with the rest of the project?
+### User
+
+-  id: integer, primary key
+-  username: string
+-  words: relation → all vocabulary items belonging to this user
+
+### Word
+
+-  id: integer, primary key
+-  userId: integer → references User.id
+-  word: string
+-  meaning: string
+-  learned: boolean (default: false)
+-  progress: integer (default: 0)
