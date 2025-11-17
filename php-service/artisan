@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+// Simple artisan helper: only supports `serve` and `seed`
+require __DIR__ . '/bootstrap.php';
+
+$argvCount = $argc;
+$command = $argv[1] ?? null;
+
+if ($command === 'serve') {
+    $host = $argv[2] ?? '127.0.0.1:8000';
+    echo "Starting server on http://$host\n";
+    passthru("php -S $host -t public");
+    exit;
+}
+
+if ($command === 'seed') {
+    echo "Seeding database...\n";
+    require_once __DIR__ . '/database/seeders/seed.php';
+    exit;
+}
+
+echo "Usage: php artisan [serve|seed]\n";
+exit(1);
