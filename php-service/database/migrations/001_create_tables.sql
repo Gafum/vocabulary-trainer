@@ -1,7 +1,7 @@
 -- Create users and words tables
 CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY,
-    username TEXT NOT NULL
+    username TEXT NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS words (

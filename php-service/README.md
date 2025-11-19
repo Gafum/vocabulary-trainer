@@ -1,11 +1,18 @@
 # PHP Service
 
-This is a minimal Laravel-PHP service. It uses SQLite and exposes simple endpoints to manage users and words.
+This is a minimal PHP service. It uses SQLite and exposes simple endpoints to manage users and words. This service is NOT Laravel — it is simple PHP with a tiny custom router, a PDO SQLite helper, and handcrafted controllers.
 
 ## Start
 
 ```
 cd php-service
+```
+
+Export PHP
+
+```
+export PATH="/c/xampp/php:$PATH"
+php -v
 ```
 
 Create the database and seed data
@@ -33,22 +40,21 @@ POST /users
 
 -  Create a new user. Body: `{ "username": "bob" }`.
 
-POST /words/{userId}
+POST /words/{username}
 
--  Create a word for the user. Body: `{ "word": "door", "meaning": "an entrance" }`.
+-  Create a word for the user (use username). Body: `{ "word": "door", "meaning": "an entrance" }`.
 
-GET /words/{userId}
+GET /words/{username}
 
--  Get all words for a user.
+-  Get all words for a user (by username).
 
-GET /words/{userId}/{wordId}
+GET /words/{username}/{wordId}
 
 -  Get a single word.
 
-PUT /words/{userId}/{wordId}
+PUT /words/{username}/{wordId}
 
 -  Update `learned` (boolean) and/or `progress` (0-100).
-
 
 ## Examples
 
@@ -61,29 +67,46 @@ curl -X POST http://127.0.0.1:8000/users \
   -d '{"username":"bob"}'
 ```
 
-Create a word:
+Create a word (by username):
 
 ```
-curl -X POST http://127.0.0.1:8000/words/<userId> \
+curl -X POST http://127.0.0.1:8000/words/<username> \
   -H "Content-Type: application/json" \
   -H "x-api-key: supersecret" \
   -d '{"word":"door","meaning":"an entrance"}'
 ```
 
-Get words:
+Get words (by username):
 
 ```
-curl -X GET http://127.0.0.1:8000/words/<userId> -H "x-api-key: supersecret"
+curl -X GET http://127.0.0.1:8000/words/<username> -H "x-api-key: supersecret"
 ```
 
-Update learned/progress:
+Update learned/progress (by username):
 
 ```
-curl -X PUT http://127.0.0.1:8000/words/<userId>/<wordId> \
+curl -X PUT http://127.0.0.1:8000/words/<username>/<wordId> \
   -H "Content-Type: application/json" \
   -H "x-api-key: supersecret" \
   -d '{"learned":true,"progress":80}'
 ```
+
+Dump all data (users + words):
+
+```
+curl -X GET http://127.0.0.1:8000/dump -H "x-api-key: supersecret"
+```
+
+Reset / clear DB (seeder recreates DB file):
+
+```
+php artisan seed
+```
+
+Notes on security / sanitization
+
+-  SQL injection: all DB operations use prepared statements with bound parameters. That protects against SQL injection.
+-  HTML sanitization: textual fields (`username`, `word`, `meaning`) are sanitized with `htmlspecialchars` before storing/returning to prevent stored XSS when data is viewed in an HTML context.
 
 ### Database Schema
 

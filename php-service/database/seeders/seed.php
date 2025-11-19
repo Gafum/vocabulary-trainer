@@ -2,9 +2,11 @@
 // Simple seeder: creates SQLite DB file, runs migration and inserts sample data
 $base = dirname(__DIR__, 2);
 $dbFile = $base . '/progress.sqlite';
-if (!file_exists($dbFile)) {
-    touch($dbFile);
+// Clear existing DB to ensure a fresh, deterministic seed
+if (file_exists($dbFile)) {
+    unlink($dbFile);
 }
+touch($dbFile);
 $pdo = new PDO('sqlite:' . $dbFile);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -12,9 +14,14 @@ $sql = file_get_contents(__DIR__ . '/../migrations/001_create_tables.sql');
 $pdo->exec($sql);
 
 // insert sample user and words
+// create a sample user with unique username
 $userId = bin2hex(random_bytes(16));
-$pdo->prepare('INSERT OR IGNORE INTO users (id, username) VALUES (:id, :username)')
-    ->execute([':id'=>$userId, ':username'=>'alice']);
+$stmt = $pdo->prepare('INSERT INTO users (id, username) VALUES (:id, :username)');
+try {
+    $stmt->execute([':id'=>$userId, ':username'=>'alice']);
+} catch (Exception $e) {
+    // ignore unique constraint errors for idempotency
+}
 
 $words = [
     ['word'=>'apple','meaning'=>'A fruit'],

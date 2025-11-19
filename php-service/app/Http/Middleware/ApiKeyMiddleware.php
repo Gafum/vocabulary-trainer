@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Middleware;
-
+// Middleware to check for valid API key
 class ApiKeyMiddleware
 {
     public function handle()
