@@ -97,6 +97,12 @@ Dump all data (users + words):
 curl -X GET http://127.0.0.1:8000/dump -H "x-api-key: supersecret"
 ```
 
+Run the basic integration test (requires PHP CLI):
+
+```
+php tests/integration.php
+```
+
 Reset / clear DB (seeder recreates DB file):
 
 ```
