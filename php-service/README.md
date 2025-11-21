@@ -1,6 +1,6 @@
-# PHP Service
+# Vocabulary Trainer PHP Service
 
-This is a minimal PHP service. It uses SQLite and exposes simple endpoints to manage users and words. This service is NOT Laravel — it is simple PHP with a tiny custom router, a PDO SQLite helper, and handcrafted controllers.
+This is a minimal PHP service for the Vocabulary Trainer application. It uses SQLite and exposes simple endpoints to manage users and words. This service is NOT Laravel — it is simple PHP with a tiny custom router, a PDO SQLite helper, and handcrafted controllers.
 
 ## Start
 
@@ -58,6 +58,12 @@ PUT /words/{username}/{wordId}
 
 ## Examples
 
+Test working of server:
+
+```
+curl -X GET http://127.0.0.1:8000/debug-db
+```
+
 Create user:
 
 ```
@@ -67,7 +73,7 @@ curl -X POST http://127.0.0.1:8000/users \
   -d '{"username":"bob"}'
 ```
 
-Create a word (by username):
+Create a word:
 
 ```
 curl -X POST http://127.0.0.1:8000/words/<username> \
@@ -76,13 +82,13 @@ curl -X POST http://127.0.0.1:8000/words/<username> \
   -d '{"word":"door","meaning":"an entrance"}'
 ```
 
-Get words (by username):
+Get words:
 
 ```
 curl -X GET http://127.0.0.1:8000/words/<username> -H "x-api-key: supersecret"
 ```
 
-Update learned/progress (by username):
+Update learned/progress:
 
 ```
 curl -X PUT http://127.0.0.1:8000/words/<username>/<wordId> \
@@ -97,10 +103,20 @@ Dump all data (users + words):
 curl -X GET http://127.0.0.1:8000/dump -H "x-api-key: supersecret"
 ```
 
-Run the basic integration test (requires PHP CLI):
+Run the basic integration test:
 
 ```
 php tests/integration.php
+```
+
+Run HTTP Integration Test
+
+This test calls the real API endpoints and verifies that the service works.
+
+Before running it, start the server.Then run:
+
+```
+php tests/http_integration.php
 ```
 
 Reset / clear DB (seeder recreates DB file):
