@@ -17,3 +17,5 @@ return [
     // Dump all data (users + words)
     ['method' => 'GET', 'path' => '/dump', 'regex' => '#^/dump$#', 'handler' => [ProgressController::class, 'dumpAll']],
 ];
+
+// like in Node js: app.get('/words/:username', ProgressController.getWords);

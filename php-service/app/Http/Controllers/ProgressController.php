@@ -18,6 +18,7 @@ class ProgressController
     {
         $data = $req->body;
         if (empty($data['username'])) {
+            // There is no username provided
             http_response_code(400);
             echo json_encode(['error' => 'username required']);
             return;
@@ -31,7 +32,7 @@ class ProgressController
         }
         $username = Utils::sanitizeHTML($username);
 
-        // enforce unique username
+        // enforce unique username (select first)
         $existing = $this->db->one('SELECT id FROM users WHERE username = :username', [':username' => $username]);
         if ($existing) {
             http_response_code(400);
@@ -39,6 +40,7 @@ class ProgressController
             echo json_encode(['error' => 'username already exists']);
             return;
         }
+        // create new user (insert into DB)
         $id = $this->db->uuid();
         $this->db->query('INSERT INTO users (id, username) VALUES (:id, :username)', [':id'=>$id, ':username'=>$username]);
         http_response_code(201);

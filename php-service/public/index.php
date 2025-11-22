@@ -1,9 +1,11 @@
 <?php
+//Like a routes folder in NODEJS Express
 require __DIR__ . '/../bootstrap.php';
 
 use App\Http\Middleware\ApiKeyMiddleware;
 use App\Http\Controllers\ProgressController;
 
+// "app.use" - get method and path
 $method = $_SERVER['REQUEST_METHOD'];
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -45,7 +47,9 @@ $routes = require __DIR__ . '/../routes/api.php';
 
 // API key middleware check for all API routes
 foreach ($routes as $route) {
-    if ($route['method'] === $method && preg_match($route['regex'], $path, $matches)) {
+    // Check if $route matches current request
+    if ($route['method'] === $method && preg_match($route['regex'], $path, $matches)) { 
+        // build request object
         $req = (object) [
             'method' => $method,
             'path' => $path,
@@ -56,6 +60,7 @@ foreach ($routes as $route) {
         // run middleware
         $mw = new ApiKeyMiddleware();
         $mwResult = $mw->handle();
+        // if api secret key is false, return 401
         if ($mwResult !== true) {
             http_response_code(401);
             header('Content-Type: application/json');
@@ -63,7 +68,7 @@ foreach ($routes as $route) {
             exit;
         }
 
-        // call handler
+        // call handler (controller and service) 
         $handler = $route['handler'];
         $controller = new $handler[0]();
         call_user_func([$controller, $handler[1]], $req);

@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Requests;
 
+// Validate input data for marking a word as learned or updating progress
 class MarkWordRequest
 {
     public function validate($data)

@@ -1,4 +1,5 @@
 <?php
+// Quick temporary check script to verify the SQLite DB file paths and their contents
 $files = [
     'E:/Projects/React/vocabulary-trainer/progress.sqlite',
     'E:/Projects/React/vocabulary-trainer/php-service/progress.sqlite'

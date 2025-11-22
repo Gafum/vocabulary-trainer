@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS words (
     userId TEXT NOT NULL,
     word TEXT NOT NULL,
     meaning TEXT NOT NULL,
-    learned INTEGER DEFAULT 0,
+    learned INTEGER DEFAULT 0, -- 0 = false (not learned), 1 = true (learned)
     progress INTEGER DEFAULT 0,
+
     FOREIGN KEY(userId) REFERENCES users(id)
 );

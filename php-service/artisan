@@ -3,16 +3,20 @@
 // Simple artisan helper: only supports `serve` and `seed`
 require __DIR__ . '/bootstrap.php';
 
+// Get command line (terminal) arguments
 $argvCount = $argc;
 $command = $argv[1] ?? null;
 
+// Start PHP server
 if ($command === 'serve') {
+    // Like in nodejs: app.listen(8000, '127.0.0.1')
     $host = $argv[2] ?? '127.0.0.1:8000';
     echo "Starting server on http://$host\n";
     passthru("php -S $host -t public");
     exit;
 }
 
+// Seed (delete all data and re-populate) the database
 if ($command === 'seed') {
     echo "Seeding database...\n";
     require_once __DIR__ . '/database/seeders/seed.php';
