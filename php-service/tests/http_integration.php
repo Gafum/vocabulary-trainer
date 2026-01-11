@@ -1,4 +1,6 @@
 <?php
+// HTTP integration test for user and word endpoints
+// There is only a positive test (200-201 response) here for brevity
 
 echo "Running HTTP integration test...\n";
 

@@ -10,8 +10,9 @@ vi.mock("../UI/Icon", () => ({
 
 describe("SearchBar", () => {
    test("renders correctly", () => {
-      render(<SearchBar searchTerm="" onSearch={() => {}} />);
+      render(<SearchBar searchTerm="" onSearch={() => { }} />);
 
+      //it will be as aria-label text
       expect(
          screen.getByLabelText(/search for vocabulary words/i)
       ).toBeInTheDocument();
@@ -28,11 +29,13 @@ describe("SearchBar", () => {
    });
 
    test("displays the current search term", () => {
-      render(<SearchBar searchTerm="hello" onSearch={() => {}} />);
+      render(<SearchBar searchTerm="hello" onSearch={() => { }} />);
 
+      // it will be as aria-label text
       const input = screen.getByLabelText(
          /search for vocabulary words/i
       ) as HTMLInputElement;
+      // Value should be "hello"
       expect(input.value).toBe("hello");
    });
 
@@ -40,6 +43,7 @@ describe("SearchBar", () => {
       const mockOnSearch = vi.fn();
       render(<SearchBar searchTerm="hello" onSearch={mockOnSearch} />);
 
+      // simulate click on clear button
       const clearButton = screen.getByLabelText(/clear search/i);
       fireEvent.click(clearButton);
 

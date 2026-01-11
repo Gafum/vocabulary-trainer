@@ -13,6 +13,7 @@ describe("useDebounce", () => {
    });
 
    test("should return the initial value immediately", () => {
+      // At the start, the debounced value should be the initial value
       const { result } = renderHook(() => useDebounce("initial", 500));
       expect(result.current).toBe("initial");
    });

@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Word, CreateWordPayload } from "../../../shared/types";
 import { fetchWords, addWord, updateWord } from "../services/api";
 
-// Query keys  ????
+// Query keys  ???? This will give us after calling the wordKeys.list function the right List of keys like ['words', 'list', {page: 1, limit: 5, searchTerm: '', sortBy: 'term', sortOrder: 'asc'}]
 export const wordKeys = {
    all: ["words"] as const,
    lists: () => [...wordKeys.all, "list"] as const,
@@ -60,6 +60,7 @@ export const useUpdateWordMutation = () => {
       onSuccess: (data) => {
          // Invalidate and refetch
          queryClient.invalidateQueries({ queryKey: wordKeys.lists() });
+         //we need to invalidate the detail query to update the editing form if it's open
          queryClient.invalidateQueries({ queryKey: wordKeys.detail(data.id) });
       },
    });
