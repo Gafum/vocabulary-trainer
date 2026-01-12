@@ -17,21 +17,21 @@ shell_exec("php " . __DIR__ . "/../artisan seed");
 
 // helper for curl
 function request($method, $url, $data = null, $apiKey = null) {
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $ch = curl_init(); // CURL like in the documentation (Readmy) - simpler request function
+    curl_setopt($ch, CURLOPT_URL, $url); // set URL
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method); // GET, POST, PUT, DELETE, etc.
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // return response as string
 
     $headers = [];
-    if ($apiKey) $headers[] = "x-api-key: $apiKey";
+    if ($apiKey) $headers[] = "x-api-key: $apiKey"; // set API key header as the first element of the headers array
     if ($data) {
-        $headers[] = "Content-Type: application/json";
+        $headers[] = "Content-Type: application/json"; // second header if data is present
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
     }
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers); // set headers
 
-    $response = curl_exec($ch);
-    $info = curl_getinfo($ch);
+    $response = curl_exec($ch); // execute request
+    $info = curl_getinfo($ch); // get info (like HTTP code (200, 404, etc.))
     curl_close($ch);
 
     return [$info['http_code'], $response];

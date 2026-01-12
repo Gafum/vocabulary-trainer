@@ -1,4 +1,4 @@
-import request from "supertest";
+import request from "supertest"; // for making HTTP requests in tests with app
 import { app } from "../src/app";
 import { PrismaClient, Word } from "@prisma/client";
 

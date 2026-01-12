@@ -104,6 +104,7 @@ curl -X GET http://127.0.0.1:8000/dump -H "x-api-key: supersecret"
 ```
 
 Run the basic integration test:
+_It only works whan the server working!_
 
 ```
 php tests/integration.php

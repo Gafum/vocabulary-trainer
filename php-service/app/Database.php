@@ -5,7 +5,7 @@ namespace App;
 class Database
 // Simple PDO wrapper for SQLite
 // with automatic migration on missing tables
-// and debug logging of DB path and table states
+// and debug LOGGING of DB path and table states
 // to help diagnose test environment issues.
 {
     protected $pdo;

@@ -4,17 +4,19 @@
 
 echo "Running php-service integration test...\n";
 
-$tmp = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'php_service_test_' . uniqid() . '.sqlite';
-if (file_exists($tmp)) unlink($tmp);
-touch($tmp);
+$tmp = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'php_service_test_' . uniqid() . '.sqlite'; // generete temp file path
+if (file_exists($tmp)) unlink($tmp); // check and remove if exists
+touch($tmp); // create empty file
 
 try {
-    $pdo = new PDO('sqlite:' . $tmp);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo = new PDO('sqlite:' . $tmp); // Create a new PDO instance to connect to the SQLite database file
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Set the error mode to throw exceptions so any SQL error stops execution
 
-    $sql = file_get_contents(__DIR__ . '/../database/migrations/001_create_tables.sql');
-    if ($sql === false) throw new Exception('Could not read migration file');
-    $pdo->exec($sql);
+    $sql = file_get_contents(__DIR__ . '/../database/migrations/001_create_tables.sql'); // load migration for creating Table SQL
+    if ($sql === false) throw new Exception('Could not read migration file'); // Verify if the file was read successfully;
+    $pdo->exec($sql); // Execute the SQL to create tables
+
+    // Make a request simulation ============== >
 
     // insert user
     $userId = bin2hex(random_bytes(8));

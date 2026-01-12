@@ -2,6 +2,7 @@
 // Minimal bootstrap: autoloader and env loader
 // It automatically loads PHP classes from files based on their namespace and class name.
 spl_autoload_register(function ($class) {
+    // Simply map namespace to directory structure
     $prefix = '';
     $base_dir = __DIR__ . '/';
     $file = $base_dir . str_replace('\\', '/', $class) . '.php';

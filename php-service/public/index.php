@@ -57,7 +57,7 @@ foreach ($routes as $route) {
             'body' => json_decode(file_get_contents('php://input'), true) ?: []
         ];
 
-        // run middleware
+        // run middleware (Check API key)
         $mw = new ApiKeyMiddleware();
         $mwResult = $mw->handle();
         // if api secret key is false, return 401
@@ -69,9 +69,9 @@ foreach ($routes as $route) {
         }
 
         // call handler (controller and service) 
-        $handler = $route['handler'];
-        $controller = new $handler[0]();
-        call_user_func([$controller, $handler[1]], $req);
+        $handler = $route['handler']; // [ControllerClass, 'methodName']<- array
+        $controller = new $handler[0](); // instantiate controller new ProgressController()
+        call_user_func([$controller, $handler[1]], $req); // call the right method on the controller
         exit;
     }
 }

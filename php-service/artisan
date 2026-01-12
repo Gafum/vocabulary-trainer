@@ -12,6 +12,7 @@ if ($command === 'serve') {
     // Like in nodejs: app.listen(8000, '127.0.0.1')
     $host = $argv[2] ?? '127.0.0.1:8000';
     echo "Starting server on http://$host\n";
+    // Folder 'public' is the root for web server
     passthru("php -S $host -t public");
     exit;
 }

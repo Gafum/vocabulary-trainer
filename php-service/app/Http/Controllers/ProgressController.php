@@ -1,4 +1,5 @@
 <?php
+// Controller and Service logic are together here for simplicity
 namespace App\Http\Controllers;
 
 use App\Database;
